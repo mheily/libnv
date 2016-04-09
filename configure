@@ -20,10 +20,17 @@
 basedir="FreeBSD-base"
 workdir="./work"
 
-# TODO: figure out a way to do a shallow clone, b/c this is 1GB of stuff
 if [ ! -d $basedir ] ; then
-	echo "checking out a copy of FreeBSD"
-	svn checkout --quiet https://svn.FreeBSD.org/base/head $basedir
+	echo "checking out a partial copy of FreeBSD HEAD"
+	#set -ex
+	svn checkout --depth empty https://svn.FreeBSD.org/base/head $basedir
+	svn update --quiet --set-depth immediates $basedir/sys
+	svn update --quiet --set-depth infinity $basedir/sys/sys
+	svn update --quiet --set-depth immediates $basedir/sys/contrib
+	svn update --quiet --set-depth infinity $basedir/sys/contrib/libnv
+	svn update --quiet --set-depth immediates $basedir/lib
+	svn update --quiet --set-depth infinity $basedir/lib/libnv
+	#set +ex
 fi
 
 if [ ! -d $workdir ] ; then
