@@ -39,7 +39,7 @@ fi
 PACKAGE_NAME=libnv
 PACKAGE_VERSION=$(svn info $basedir | grep Revision | awk '{ print $2 }')
 LIBRARIES=libnv
-libnv_CFLAGS="-include ./config.h -I`pwd`/include -std=c99 -Wall -Werror"
+libnv_CFLAGS="-include ./config.h -I$workdir/include -std=c99 -Wall -Werror"
 libnv_SOURCES="$workdir/src/nvlist.c $workdir/src/nvpair.c $workdir/src/msgio.c"
 
 write_makefile
